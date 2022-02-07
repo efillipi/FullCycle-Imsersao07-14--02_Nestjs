@@ -30,7 +30,7 @@ export class CheckNewTweetsTask {
       limit: this.limit,
     });
 
-    console.log(`tweets count: ${tweets.length}`);
+    console.log(`db tweets count: ${tweets.length}`);
 
     if (tweets.length === this.limit) {
       console.log('achou mais tweets');
