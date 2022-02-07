@@ -5,12 +5,17 @@ services:
     build: .
     entrypoint: 
       sh -c "yarn && yarn start:dev"
+    environment:
+      MONGO_DSN: mongodb://root:root@db/analytics?authSource=admin
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     ports:
       - 3333:3333
     volumes:
       - .:/home/node/app
     depends_on:
       - db
+      - redis
 
   db:
     image: mongo:5.0.5
@@ -37,3 +42,6 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=root
     depends_on:
       - db
+  
+  redis:
+    image: redis:6.2.6-alpine3.14
