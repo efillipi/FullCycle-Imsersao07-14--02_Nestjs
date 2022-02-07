@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+const PORT = process.env.API_PORT;
+
 async function server() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3333);
+  await app.listen(PORT);
 }
 server().then(() => {
-  console.log(`Server online in localhost:3333`);
+  console.log(`Server online in localhost:${PORT}`);
 });
