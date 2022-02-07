@@ -4,6 +4,7 @@ import { TweetsModule } from './modules/tweets/tweets.module';
 import { BullModule } from '@nestjs/bull';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
+import { MailListModule } from './modules/mail-list/mail-list.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       },
     }),
     TweetsModule,
+    MailListModule,
   ],
 })
 export class AppModule {}
