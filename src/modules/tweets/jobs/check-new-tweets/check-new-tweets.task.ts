@@ -7,7 +7,7 @@ import { InjectQueue } from '@nestjs/bull';
 
 @Injectable()
 export class CheckNewTweetsTask {
-  private limit = 10;
+  private limit = +process.env.TWEETS_LIMIT;
 
   constructor(
     private tweetService: TweetsService,
