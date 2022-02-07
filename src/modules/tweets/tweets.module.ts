@@ -13,7 +13,7 @@ import { BullModule } from '@nestjs/bull';
       useFactory: () => ({
         store: redisStore,
         host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT),
+        port: +process.env.REDIS_PORT,
       }),
     }),
     MongooseModule.forFeature([{ name: Tweet.name, schema: TweetSchema }]),
