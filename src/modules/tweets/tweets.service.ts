@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { Tweet, TweetDocument } from './schemas/tweet.schema';
 
 @Injectable()
 export class TweetsService {
-  create(createTweetDto: CreateTweetDto) {
-    return 'This action adds a new tweet';
+  constructor(
+    @InjectModel(Tweet.name)
+    private tweetModel: Model<TweetDocument>,
+  ) {}
+  async create(createTweetDto: CreateTweetDto) {
+    return await this.tweetModel.create(createTweetDto);
   }
 
-  findAll() {
-    return `This action returns all tweets`;
+  async findAll() {
+    return await this.tweetModel.find().exec();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return `This action returns a #${id} tweet`;
   }
 
-  update(id: number, updateTweetDto: UpdateTweetDto) {
+  async update(id: number, updateTweetDto: UpdateTweetDto) {
     return `This action updates a #${id} tweet`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} tweet`;
   }
 }
