@@ -1,1 +1,2 @@
 API_PORT=3333
+MONGO_URL=mongodb://root:root@db/analytics?authSource=admin
