@@ -17,7 +17,7 @@ export class TweetsService {
   async findAll(
     { offset, limit }: { offset: number; limit: number } = {
       offset: 0,
-      limit: 10,
+      limit: +process.env.TWEETS_LIMIT,
     },
   ) {
     return await this.tweetModel
