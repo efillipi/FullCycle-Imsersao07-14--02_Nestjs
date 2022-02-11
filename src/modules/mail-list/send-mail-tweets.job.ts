@@ -21,13 +21,11 @@ export class SendMailTweetsJob {
           key: 'emails',
           value: JSON.stringify({
             subject: 'Novos tweets encontrados',
-            body: `Acesse o link   <a href="${process.env.NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
+            body: `Acesse o link <a href="${process.env.NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
             emails: mailList.emails,
           }),
         },
       ],
     });
-    console.log(mailList.emails);
-    console.log('Enviado emais para o micro-service com Kafka, topic:"emails"');
   }
 }

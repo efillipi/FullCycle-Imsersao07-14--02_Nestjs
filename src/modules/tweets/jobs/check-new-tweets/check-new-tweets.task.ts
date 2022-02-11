@@ -7,7 +7,7 @@ import { InjectQueue } from '@nestjs/bull';
 
 @Injectable()
 export class CheckNewTweetsTask {
-  private limit = 100;
+  private limit = 10;
 
   constructor(
     private tweetService: TweetsService,
@@ -17,24 +17,17 @@ export class CheckNewTweetsTask {
     private emailsQueue: Queue,
   ) {}
 
-  @Interval(60000)
+  @Interval(10000)
   async handle() {
-    console.log('procurando tweets...');
     let offset = await this.cache.get<number>('tweet-offset');
     offset = offset === undefined || offset === null ? 0 : offset;
-
-    console.log(`offset: ${offset}`);
 
     const tweets = await this.tweetService.findAll({
       offset,
       limit: this.limit,
     });
 
-    console.log(`tweets count: ${tweets.length}`);
-
     if (tweets.length === this.limit) {
-      console.log('achou mais tweets');
-
       await this.cache.set('tweet-offset', offset + this.limit, {
         ttl: 1 * 60 * 10,
       });
