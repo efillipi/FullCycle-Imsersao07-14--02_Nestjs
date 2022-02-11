@@ -7,7 +7,7 @@ import { InjectQueue } from '@nestjs/bull';
 
 @Injectable()
 export class CheckNewTweetsTask {
-  private limit = 10;
+  private limit = 100;
 
   constructor(
     private tweetService: TweetsService,
@@ -17,7 +17,7 @@ export class CheckNewTweetsTask {
     private emailsQueue: Queue,
   ) {}
 
-  @Interval(5000)
+  @Interval(60000)
   async handle() {
     console.log('procurando tweets...');
     let offset = await this.cache.get<number>('tweet-offset');
@@ -39,7 +39,7 @@ export class CheckNewTweetsTask {
         ttl: 1 * 60 * 10,
       });
 
-      this.emailsQueue.add({}); //kafka
+      this.emailsQueue.add({});
     }
   }
 }

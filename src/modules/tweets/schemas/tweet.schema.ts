@@ -173,9 +173,3 @@ export class Tweet {
 }
 
 export const TweetSchema = SchemaFactory.createForClass(Tweet);
-
-//vendo novos tweets que chegaram no banco de dados
-
-//10 novos tweets chegarem
-
-//enviar um novo e-mail para uma listinha
