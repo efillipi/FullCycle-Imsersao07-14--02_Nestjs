@@ -7,7 +7,7 @@ import { InjectQueue } from '@nestjs/bull';
 
 @Injectable()
 export class CheckNewTweetsTask {
-  private limit = +process.env.TWEETS_LIMIT;
+  private limit = 10;
 
   constructor(
     private tweetService: TweetsService,
@@ -30,7 +30,7 @@ export class CheckNewTweetsTask {
       limit: this.limit,
     });
 
-    console.log(`db tweets count: ${tweets.length}`);
+    console.log(`tweets count: ${tweets.length}`);
 
     if (tweets.length === this.limit) {
       console.log('achou mais tweets');
@@ -43,11 +43,3 @@ export class CheckNewTweetsTask {
     }
   }
 }
-
-// page 1 2 3
-
-// select * from tabela limit 0, 15   15, 15
-
-// fila de processamento
-
-// redis

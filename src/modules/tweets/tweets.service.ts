@@ -10,6 +10,7 @@ export class TweetsService {
     @InjectModel(Tweet.name)
     private tweetModel: Model<TweetDocument>,
   ) {}
+
   async create(createTweetDto: CreateTweetDto) {
     return await this.tweetModel.create(createTweetDto);
   }
@@ -17,7 +18,7 @@ export class TweetsService {
   async findAll(
     { offset, limit }: { offset: number; limit: number } = {
       offset: 0,
-      limit: +process.env.TWEETS_LIMIT,
+      limit: 50,
     },
   ) {
     return await this.tweetModel
