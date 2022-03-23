@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Res, HttpStatus } from '@nestjs/common';
-import { MailListService } from './mail-list.service';
-import { CreateMailListDto } from './dto/create-mail-list.dto';
+import { MailListService } from '../services/mail-list.service';
+import { CreateMailListDto } from '../dtos/create-mail-list.dto';
 import { Response } from 'express';
 
 @Controller('mail-list')

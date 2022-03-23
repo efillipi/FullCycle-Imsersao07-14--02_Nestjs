@@ -1,7 +1,7 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Inject } from '@nestjs/common';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
-import { MailListService } from './mail-list.service';
+import { MailListService } from '../services/mail-list.service';
 
 @Processor('emails')
 export class SendMailTweetsJob {

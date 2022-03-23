@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MailListController } from './mail-list.controller';
-import { MailListService } from './mail-list.service';
+import { MailListService } from '../services/mail-list.service';
 
 describe('MailListController', () => {
   let controller: MailListController;

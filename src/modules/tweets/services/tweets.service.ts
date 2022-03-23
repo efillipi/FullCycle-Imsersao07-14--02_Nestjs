@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateTweetDto } from './dto/create-tweet.dto';
-import { Tweet, TweetDocument } from './schemas/tweet.schema';
+import { CreateTweetDto } from '../dtos/create-tweet.dto';
+import { Tweet, TweetDocument } from '../schemas/tweet.schema';
 
 @Injectable()
 export class TweetsService {

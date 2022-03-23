@@ -1,8 +1,8 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { Tweet, TweetSchema } from './schemas/tweet.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TweetsService } from './tweets.service';
-import { TweetsController } from './tweets.controller';
+import { TweetsService } from './services/tweets.service';
+import { TweetsController } from './controllers/tweets.controller';
 import { CheckNewTweetsTask } from './jobs/check-new-tweets/check-new-tweets.task';
 import * as redisStore from 'cache-manager-redis-store';
 import { BullModule } from '@nestjs/bull';
