@@ -13,19 +13,30 @@ export class SendMailTweetsJob {
 
   @Process()
   async handle() {
-    const mailList = await this.mailListService.findAll();
-    await this.kafkaProducer.send({
-      topic: 'emails',
-      messages: [
-        {
-          key: 'emails',
-          value: JSON.stringify({
-            subject: 'Novos tweets encontrados',
-            body: `Acesse o link <a href="${process.env.NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
-            emails: mailList.emails,
-          }),
-        },
-      ],
-    });
+    try {
+      console.log('SendMailTweetsJob Started');
+
+      const mailList = await this.mailListService.findAll();
+
+      if (!mailList) {
+        throw new Error('mailList is null or empty');
+      }
+
+      await this.kafkaProducer.send({
+        topic: 'emails',
+        messages: [
+          {
+            key: 'emails',
+            value: JSON.stringify({
+              subject: 'Novos tweets encontrados',
+              body: `Acesse o link <a href="${process.env.NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
+              emails: mailList.emails,
+            }),
+          },
+        ],
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

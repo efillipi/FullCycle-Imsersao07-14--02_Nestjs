@@ -19,6 +19,7 @@ export class CheckNewTweetsTask {
 
   @Interval(10000)
   async handle() {
+    console.log('CheckNewTweetsTask Started');
     let offset = await this.cache.get<number>('tweet-offset');
     offset = offset === undefined || offset === null ? 0 : offset;
 
