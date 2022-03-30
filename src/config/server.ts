@@ -1,0 +1,22 @@
+const PORT = process.env.API_PORT;
+
+const MONGO_DSN = process.env.MONGO_DSN;
+
+const NEXT_PUBLIC_FRONT_URL = process.env.NEXT_PUBLIC_FRONT_URL;
+
+const REDIS_CONFIG = {
+  host: process.env.REDIS_HOST,
+  port: +process.env.REDIS_PORT,
+};
+
+const KAFKA_CONFIG = {
+  CLIENT_ID: process.env.KAFKA_CLIENT_ID,
+  HOST: [process.env.KAFKA_HOST_ONE],
+  USE_SSL: process.env.KAFKA_USE_SSL,
+  CONSUMER_GROUP_ID: process.env.KAFKA_CONSUMER_GROUP_ID,
+  SASL_USERNAME: process.env.KAFKA_SASL_USERNAME,
+  SASL_PASSWORD: process.env.KAFKA_SASL_PASSWORD,
+  CONNECTION_TIMEOUT: process.env.KAFKA_CONNECTION_TIMEOUT,
+};
+
+export { PORT, MONGO_DSN, REDIS_CONFIG, KAFKA_CONFIG, NEXT_PUBLIC_FRONT_URL };

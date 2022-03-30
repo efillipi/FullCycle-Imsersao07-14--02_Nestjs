@@ -5,25 +5,40 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MailList, MailListSchema } from './schemas/mail-list.schema';
 import { SendMailTweetsJob } from './jobs/send-mail-tweets.job';
 import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
+import { KAFKA_CONFIG } from 'src/config/server';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: MailList.name, schema: MailListSchema },
     ]),
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'KAFKA_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: 'nest',
-            brokers: ['host.docker.internal:9094'],
+        useFactory: () => ({
+          transport: Transport.KAFKA,
+          options: {
+            client: {
+              clientId: KAFKA_CONFIG.CLIENT_ID,
+              connectionTimeout: parseInt(KAFKA_CONFIG.CONNECTION_TIMEOUT),
+              brokers: KAFKA_CONFIG.HOST,
+              ssl: KAFKA_CONFIG.USE_SSL === 'true',
+              ...(KAFKA_CONFIG.SASL_USERNAME &&
+                KAFKA_CONFIG.SASL_USERNAME !== '' &&
+                KAFKA_CONFIG.SASL_PASSWORD &&
+                KAFKA_CONFIG.SASL_PASSWORD !== '' && {
+                  sasl: {
+                    mechanism: 'plain',
+                    username: KAFKA_CONFIG.SASL_USERNAME,
+                    password: KAFKA_CONFIG.SASL_PASSWORD,
+                  },
+                }),
+            },
           },
           consumer: {
-            groupId: 'nest',
+            groupId: KAFKA_CONFIG.CONSUMER_GROUP_ID,
           },
-        },
+        }),
       },
     ]),
   ],

@@ -2,6 +2,7 @@ import { Process, Processor } from '@nestjs/bull';
 import { Inject } from '@nestjs/common';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { MailListService } from '../services/mail-list.service';
+import { NEXT_PUBLIC_FRONT_URL } from 'src/config/server';
 
 @Processor('emails')
 export class SendMailTweetsJob {
@@ -29,12 +30,14 @@ export class SendMailTweetsJob {
             key: 'emails',
             value: JSON.stringify({
               subject: 'Novos tweets encontrados',
-              body: `Acesse o link <a href="${process.env.NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
+              body: `Acesse o link <a href="${NEXT_PUBLIC_FRONT_URL}/tweets"> Clique aqui </a>`,
               emails: mailList.emails,
             }),
           },
         ],
       });
+      console.log(mailList.emails);
+      console.log('Send to TOPIC on Kafka');
     } catch (error) {
       console.error(error);
     }

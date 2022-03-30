@@ -1,8 +1,7 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
-const PORT = process.env.API_PORT;
+import { PORT } from 'src/config/server';
 
 async function server() {
   const app = await NestFactory.create(AppModule, { cors: true });
